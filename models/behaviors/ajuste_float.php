@@ -7,6 +7,7 @@
  *
  * @filesource
  * @author        Juan Basso <jrbasso@gmail.com>
+ * @author        Daniel Pakuschewski <contato@danielpk.com.br>
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -41,9 +42,40 @@ class AjusteFloatBehavior extends ModelBehavior {
 			}
 		}
 	}
+	
+/**
+ * Before Find
+ * Transforma o valor de BRL para o formato SQL antes de executar uma query
+ * com conditions.
+ * 
+ * @param object $model
+ * @return array
+ * @access public
+ */
+	function beforeFind(&$model, $query) {
+		if (is_array($query['conditions']) && count($query['conditions']) > 0) {
+			foreach ($query['conditions'] as $field => $value) {
+				if (strpos($field, '.') == false) {
+					$field = $model->alias . '.' . $field;
+				}
+				list($Model, $field) = explode('.', $field);
+				$Model = ($Model != $model->alias) ? $model->{$Model} : $model;
+				if ($Model->hasField($field) && $Model->_schema[$field]['type'] == 'float') {
+					$value = str_replace(',', '.', $value);
+					if (isset($query['conditions'][$field])) {
+						$query['conditions'][$field] = $value;
+					}
+					if (isset($query['conditions'][$Model->alias . '.' . $field])) {
+						$query['conditions'][$Model->alias . '.' . $field] = $value;
+					}
+				}
+			}
+		}
+		return($query);
+	}
 
 /**
- * Before Validate
+ * Before Save
  *
  * @param object $model
  * @return void
@@ -60,25 +92,4 @@ class AjusteFloatBehavior extends ModelBehavior {
 		return true;
 	}
 
-/**
- * After Find
- *
- * @param object $model
- * @param array $results
- * @param boolean $primary
- * @return void
- * @access public
- */
-	function afterFind(&$model, $results, $primary) {
-		foreach ($results as $key => $r) {
-			if (isset($r[$model->alias]) && is_array($r[$model->alias])) {
-				foreach (array_keys($r[$model->alias]) as $arrayKey) {
-					if (in_array($arrayKey, $this->floatFields[$model->alias])) {
-						$results[$key][$model->alias][$arrayKey] = number_format($r[$model->alias][$arrayKey], 2, ',', '.');
-					}
-				}
-			}
-		}
-		return $results;
-	}
 }
