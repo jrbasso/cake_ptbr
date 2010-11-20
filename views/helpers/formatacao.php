@@ -100,6 +100,64 @@ class FormatacaoHelper extends AppHelper {
 	}
 
 /**
+	 * Mostrar uma data em tempo
+	 *
+	 * @param integer $dataHora Data e hora em timestamp ou null para atual
+	 * @param string $limite null, caso não haja expiração ou então, forneça um tempo usando o formato inglês para strtotime: Ex: 1 year
+	 * @return string Descrição da data em tempo ex.: a 1 minuto, a 1 semana"
+	 * @access public
+	 */
+	
+	function tempo($dataHora=null, $limite = '30 days'){
+		if(!$dataHora){
+			return 'Data Inválida.';
+		}
+		
+		$_dataHora = str_replace('/', '-', $dataHora);
+		$_dataHora =  date('ymdHi', strtotime($_dataHora));
+		
+		if($limite != null){
+			if($_dataHora > date('ymdHi', strtotime('+ '.$limite))){
+				return $this->dataHora(dataHora);
+			}
+		}
+
+		$_dataHora = date('ymdHi') - $_dataHora;
+		if($_dataHora > 88697640 && $_dataHora < 100000000){
+		    $_dataHora = $_dataHora - 88697640;
+		}
+		
+		switch($_dataHora) {
+			case 0:
+				return 'menos de 1 minuto'; 
+			case ($_dataHora < 99):
+				if($_dataHora == 1){
+					 return '1 minuto';
+				}elseif($_dataHora > 59){
+					return  ($_dataHora - 40).' minutos';
+				}
+				return $_dataHora.' minutos';
+			case ($_dataHora > 99 && $_dataHora < 2359):
+				$flr = floor($_dataHora * .01);
+				return $flr == 1 ? '1 hora': $flr. ' horas';
+				
+			case ($_dataHora > 2359 && $_dataHora < 310000):
+				$flr = floor($_dataHora * .0001);
+				return $flr == 1 ? '1 dia': $flr. ' dias';
+
+			case ($_dataHora > 310001 && $_dataHora < 12320000):
+				$flr = floor($_dataHora * .000001);
+				return $flr == 1 ? '1 mes' : $flr. ' meses';
+
+			case ($_dataHora > 100000000):
+				$flr = floor($_dataHora * .00000001);
+				return $flr == 1 ? '1 ano' : $flr . ' anos';
+	
+		}
+	}
+
+
+/**
  * Número float com ponto ao invés de vírgula
  *
  * @param float $numero Número
