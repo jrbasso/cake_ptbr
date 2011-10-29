@@ -22,7 +22,7 @@ class Estados {
  * @return array Lista dos estados
  * @access public
  */
-	function lista() {
+	public static function lista() {
 		return array(
 			'AC' => 'Acre',
 			'AL' => 'Alagoas',

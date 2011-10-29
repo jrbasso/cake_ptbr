@@ -23,7 +23,7 @@ class EstadosHelper extends AppHelper {
  * @var array
  * @access public
  */
-	var $helpers = array('Form');
+	public $helpers = array('Form');
 
 /**
  * Retorna a select com a lista dos estados
@@ -31,10 +31,10 @@ class EstadosHelper extends AppHelper {
  * @param string $fieldName Nome do campo
  * @param string $selected Sigla do estado que deve ser selecionado
  * @param array $attributes Mesmos atributos do Form::select(). Também é possível passar o param
-				'uf' para mostrar apenas as siglas, sem os nomes
+ *				'uf' para mostrar apenas as siglas, sem os nomes
  */
-	function select($fieldName, $selected = null, $attributes = array()) {
-		App::import('Vendor', 'CakePtbr.Estados');
+	public function select($fieldName, $selected = null, $attributes = array()) {
+		App::import('Vendor', 'CakePTBR.Estados');
 		$options = Estados::lista();
 		if (isset($attributes['uf']) && $attributes['uf'] === true) {
 			$estados = array_keys($options);
@@ -44,6 +44,9 @@ class EstadosHelper extends AppHelper {
 		if (!isset($attributes['empty'])) {
 			$attributes['empty'] = false;
 		}
-		return $this->Form->select($fieldName, $options, $selected, $attributes);
+		if ($selected) {
+			$attributes['value'] = $selected;
+		}
+		return $this->Form->select($fieldName, $options, $attributes);
 	}
 }

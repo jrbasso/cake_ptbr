@@ -24,7 +24,7 @@ class AjusteFloatBehavior extends ModelBehavior {
  * @var array
  * @access public
  */
-	var $floatFields = array();
+	public $floatFields = array();
 
 /**
  * Setup
@@ -34,7 +34,7 @@ class AjusteFloatBehavior extends ModelBehavior {
  * @return void
  * @access public
  */
-	function setup(&$model, $config = array()) {
+	public function setup(&$model, $config = array()) {
 		$this->floatFields[$model->alias] = array();
 		foreach ($model->_schema as $field => $spec) {
 			if ($spec['type'] == 'float') {
@@ -52,7 +52,7 @@ class AjusteFloatBehavior extends ModelBehavior {
  * @return boolean
  * @access public
  */	
-	function beforeValidate(&$model) {
+	public function beforeValidate(&$model) {
 		foreach($model->data[$model->alias] as $field => $value) {
 			if ($model->hasField($field) && $model->_schema[$field]['type'] == 'float') {
 				if (!is_string($value) || preg_match('/^[0-9]+(\.[0-9]+)?$/', $value)) {
@@ -73,7 +73,7 @@ class AjusteFloatBehavior extends ModelBehavior {
  * @return array
  * @access public
  */
-	function beforeFind(&$model, $query) {
+	public function beforeFind(&$model, $query) {
 		if (is_array($query['conditions'])) {
 			foreach ($query['conditions'] as $field => $value) {
 				if (strpos($field, '.') === false) {
@@ -106,7 +106,7 @@ class AjusteFloatBehavior extends ModelBehavior {
  * @return void
  * @access public
  */
-	function beforeSave(&$model) {
+	public function beforeSave(&$model) {
 		$data =& $model->data[$model->alias];
 		foreach ($data as $name => $value) {
 			if (in_array($name, $this->floatFields[$model->alias])) {
@@ -132,7 +132,7 @@ class AjusteFloatBehavior extends ModelBehavior {
  * @access public
  * @deprecated Isto deve ser feito na view
  */
-	function afterFind(&$model, $results, $primary) {
+	public function afterFind(&$model, $results, $primary) {
 		foreach ($results as $key => $r) {
 			if (isset($r[$model->alias]) && is_array($r[$model->alias])) {
 				foreach (array_keys($r[$model->alias]) as $arrayKey) {

@@ -23,7 +23,7 @@ class EstadoBrasileiro extends AppModel {
  * @var string
  * @access public
  */
-	var $name = 'EstadoBrasileiro';
+	public $name = 'EstadoBrasileiro';
 
 /**
  * Usar tabela?
@@ -31,7 +31,7 @@ class EstadoBrasileiro extends AppModel {
  * @var boolean
  * @access public
  */
-	var $useTable = false;
+	public $useTable = false;
 
 /**
  * Schema do banco de dados
@@ -39,7 +39,7 @@ class EstadoBrasileiro extends AppModel {
  * @var array
  * @access protected
  */
-	var $_schema = array();
+	protected $_schema = array();
 
 /**
  * Construtor
@@ -49,10 +49,10 @@ class EstadoBrasileiro extends AppModel {
  * @param string $ds
  * @access private
  */
-	function __construct($id = false, $table = null, $ds = null) {
+	private function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct();
 
-		App::import('Vendor', 'CakePtbr.Estados');
+		App::import('Vendor', 'CakePTBR.Estados');
 		$this->_estados = Estados::lista();
 	}
 
@@ -67,7 +67,7 @@ class EstadoBrasileiro extends AppModel {
  * @access public
  */
 
-	function find($conditions = null, $fields = array(), $order = null, $recursive = null) {
+	public function find($conditions = null, $fields = array(), $order = null, $recursive = null) {
 		if (is_string($conditions)) {
 			switch ($conditions) {
 				case 'list':
@@ -86,7 +86,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados
  * @access public
  */
-	function listaEstados($incluirDF = true) {
+	public function listaEstados($incluirDF = true) {
 		if ($incluirDF) {
 			return $this->_estados;
 		}
@@ -102,7 +102,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados
  * @access public
  */
-	function todosEstados($incluirDF = true) {
+	public function todosEstados($incluirDF = true) {
 		$estados = array('EstadoBrasileiro' => array());
 		foreach ($this->_estados as $sigla => $nome) {
 			if (!$incluirDF && $sigla === 'DF') {
@@ -123,7 +123,7 @@ class EstadoBrasileiro extends AppModel {
  * @return string Nome do estado. False quando sigla for inválida
  * @access public
  */
-	function estadoPorSigla($sigla) {
+	public function estadoPorSigla($sigla) {
 		if (isset($this->_estados[$sigla])) {
 			return $this->_estados[$sigla];
 		}
@@ -137,7 +137,7 @@ class EstadoBrasileiro extends AppModel {
  * @return string Sigla do estado. False quando estado for inválido
  * @access public
  */
-	function siglaPorEstado($estado) {
+	public function siglaPorEstado($estado) {
 		if ($sigla = array_search($estado, $this->_estados)) {
 			return $sigla;
 		}
@@ -150,7 +150,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados do sul
  * @access public
  */
-	function estadosDoSul() {
+	public function estadosDoSul() {
 		return $this->_estadosPorRegiao(array('PR', 'RS', 'SC'));
 	}
 
@@ -160,7 +160,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados do sudeste
  * @access public
  */
-	function estadosDoSudeste() {
+	public function estadosDoSudeste() {
 		return $this->_estadosPorRegiao(array('ES', 'MG', 'RJ', 'SP'));
 	}
 
@@ -171,7 +171,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados do centro oeste
  * @access public
  */
-	function estadosDoCentroOeste($incluirDF = true) {
+	public function estadosDoCentroOeste($incluirDF = true) {
 		if ($incluirDF) {
 			return $this->_estadosPorRegiao(array('DF', 'GO', 'MT', 'MS'));
 		}
@@ -184,7 +184,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados do norte
  * @access public
  */
-	function estadosDoNorte() {
+	public function estadosDoNorte() {
 		return $this->_estadosPorRegiao(array('AC', 'AP', 'AM', 'PA', 'RO', 'RR', 'TO'));
 	}
 
@@ -194,7 +194,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados do norteste
  * @access public
  */
-	function estadosDoNordeste() {
+	public function estadosDoNordeste() {
 		return $this->_estadosPorRegiao(array('AL', 'BA', 'CE', 'MA', 'PB', 'PI', 'PE', 'RN', 'SE'));
 	}
 
@@ -205,7 +205,7 @@ class EstadoBrasileiro extends AppModel {
  * @return array Lista dos estados
  * @access protected
  */
-	function _estadosPorRegiao($estados) {
+	protected function _estadosPorRegiao($estados) {
 		$retorno = array();
 		foreach ($estados as $estado) {
 			$retorno[$estado] = $this->_estados[$estado];

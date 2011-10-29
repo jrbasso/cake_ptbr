@@ -25,7 +25,8 @@ define('ERRO_CORREIOS_EXCESSO_PESO', -1001);
 define('ERRO_CORREIOS_FALHA_COMUNICACAO', -1002);
 define('ERRO_CORREIOS_CONTEUDO_INVALIDO', -1003);
 
-App::import('Core', array('HttpSocket', 'Xml'));
+App::uses('Xml', 'Utility');
+App::uses('HttpSocket', 'Network/Http');
 
 /**
  * CorreiosBehavior
@@ -48,7 +49,7 @@ class CorreiosBehavior extends ModelBehavior {
  * @return mixed Array com os dados do frete ou integer com erro. Ver defines ERRO_CORREIOS_* para erros.
  * @access public
  */
-	function valorFrete(&$model, $servico, $cepOrigem, $cepDestino, $peso, $maoPropria = false, $valorDeclarado = 0.0, $avisoRecebimento = false) {
+	public function valorFrete(&$model, $servico, $cepOrigem, $cepDestino, $peso, $maoPropria = false, $valorDeclarado = 0.0, $avisoRecebimento = false) {
 		// Validação dos parâmetros
 		$tipos = array(CORREIOS_SEDEX, CORREIOS_SEDEX_A_COBRAR, CORREIOS_SEDEX_10, CORREIOS_SEDEX_HOJE, CORREIOS_ENCOMENDA_NORMAL);
 		if (!in_array($servico, $tipos)) {
@@ -122,7 +123,7 @@ class CorreiosBehavior extends ModelBehavior {
  * @return mixed Array com os dados do endereço ou interger para erro. Ver defines ERRO_CORREIOS_* para os erros.
  * @access public
  */
-	function endereco(&$model, $cep) {
+	public function endereco(&$model, $cep) {
 		if (!$this->_validaCep($cep, '-')) {
 			return ERRO_CORREIOS_PARAMETROS_INVALIDOS;
 		}
@@ -179,7 +180,7 @@ class CorreiosBehavior extends ModelBehavior {
  * @return boolean CEP Correto
  * @access protected
  */
-	function _validaCep($cep) {
+	protected function _validaCep($cep) {
 		return (bool)preg_match('/^\d{5}\-?\d{3}$/', $cep);
 	}
 
@@ -192,7 +193,7 @@ class CorreiosBehavior extends ModelBehavior {
  * @return string Página solicitada
  * @access protected
  */
-	function _requisitaUrl($url, $method, $query) {
+	protected function _requisitaUrl($url, $method, $query) {
 		$HttpSocket = new HttpSocket();
 		$uri = array(
 			'scheme' => 'http',
