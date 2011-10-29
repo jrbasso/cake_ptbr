@@ -55,7 +55,7 @@ class CorreiosBehavior extends ModelBehavior {
 		if (!in_array($servico, $tipos)) {
 			return ERRO_CORREIOS_PARAMETROS_INVALIDOS;
 		}
-		
+
 		if (!$this->_validaCep($cepOrigem) || !$this->_validaCep($cepDestino)) {
 			return ERRO_CORREIOS_PARAMETROS_INVALIDOS;
 		}
