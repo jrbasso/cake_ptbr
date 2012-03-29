@@ -20,6 +20,7 @@ $_pluralIrregular = array(
 	'as' => 'ases',
 	'bencao' => 'bencaos',
 	'cao' => 'caes',
+	'campus' => 'campi',
 	'capelao' => 'capelaes',
 	'capitao' => 'capitaes',
 	'chao' => 'chaos',

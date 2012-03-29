@@ -27,7 +27,7 @@ foreach ($fields as $field) {
 		foreach ($associations['belongsTo'] as $alias => $details) {
 			if ($field === $details['foreignKey']) {
 				$isKey = true;
-				echo "\t\t<dt><?php echo __('" . nflexao::acentos(Inflector::humanize(Inflector::underscore($alias))) . "'); ?></dt>\n";
+				echo "\t\t<dt><?php echo __('" . Inflexao::acentos(Inflector::humanize(Inflector::underscore($alias))) . "'); ?></dt>\n";
 				echo "\t\t<dd>\n\t\t\t<?php echo \$this->Html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller' => '{$details['controller']}', 'action' => 'view', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?>\n\t\t\t&nbsp;\n\t\t</dd>\n";
 				break;
 			}
