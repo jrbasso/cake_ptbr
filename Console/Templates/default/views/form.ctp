@@ -54,7 +54,7 @@ require_once dirname(dirname(__FILE__)) . DS . 'Inflexao.php';
 	<ul>
 
 <?php if (strpos($action, 'add') === false): ?>
-		<li><?php echo "<?php echo \$this->Form->postLink(__('Excluir'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __(Você tem certeza que deseja excluir o # %s?', \$this->Form->value('{$modelClass}.{$primaryKey}'))); ?>";?></li>
+		<li><?php echo "<?php echo \$this->Form->postLink(__('Excluir'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __('Você tem certeza que deseja excluir o # %s?', \$this->Form->value('{$modelClass}.{$primaryKey}'))); ?>";?></li>
 <?php endif;?>
 		<li><?php echo "<?php echo \$this->Html->link(__('Listar " . Inflexao::acentos($pluralHumanName) . "'), array('action' => 'index'));?>";?></li>
 <?php

@@ -27,10 +27,8 @@ require_once dirname(dirname(__FILE__)) . DS . 'Inflexao.php';
 		<th class="actions"><?php echo "<?php echo __('Ações');?>";?></th>
 	</tr>
 	<?php
-	echo "<?php
-	foreach (\${$pluralVar} as \${$singularVar}): ?>\n";
+	echo "<?php foreach (\${$pluralVar} as \${$singularVar}): ?>\n";
 	echo "\t<tr>\n";
-	echo "\t<tr<?php echo \$class;?>>\n";
 		foreach ($fields as $field) {
 			$isKey = false;
 			if (!empty($associations['belongsTo'])) {
