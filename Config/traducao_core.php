@@ -15,4 +15,4 @@
 Configure::write('Config.language', 'pt-br');
 
 // Adicionando o caminho do locale
-App::build(array('locales' => CakePlugin::path('CakePtbr') . DS . 'locale' . DS));
+App::build(array('Locale' => array(CakePlugin::path('CakePtbr') . 'Locale' . DS)));
