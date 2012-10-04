@@ -18,7 +18,7 @@
 class AjusteDataBehavior extends ModelBehavior {
 
 /**
- * Configuração dos campos
+ * Configuraï¿½ï¿½o dos campos
  *
  * @var array
  * @access public
@@ -35,7 +35,7 @@ class AjusteDataBehavior extends ModelBehavior {
  */
 	public function setup($model, $config = array()) {
 		if (empty($config)) {
-			// Caso não seja informado os campos, ele irá buscar no schema
+			// Caso nï¿½o seja informado os campos, ele irï¿½ buscar no schema
 			$this->campos[$model->name] = $this->_buscaCamposDate($model);
 		} elseif (!is_array($config)) {
 			$this->campos[$model->name] = array($config);
@@ -99,11 +99,13 @@ class AjusteDataBehavior extends ModelBehavior {
  * @access protected
  */
 	public function _buscaCamposDate(&$model) {
-		if (!is_array($model->_schema)) {
+		$schema = $model->schema();
+		if (!is_array($schema)) {
 			return array();
 		}
 		$saida = array();
-		foreach ($model->_schema as $campo => $infos) {
+		
+		foreach ($schema as $campo => $infos) {
 			if ($infos['type'] == 'date' && !in_array($campo, array('created', 'updated', 'modified'))) {
 				$saida[] = $campo;
 			}
