@@ -1,0 +1,18 @@
+{
+	"name": "jrbasso/cake_ptbr",
+	"type": "cakephp-plugin",
+	"description": "Repositório com arquivos para deixar seu Cake falando português.",
+	"homepage": "http://github.com/jrbasso/cake_ptbr",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Juan Basso",
+			"email": "jrbasso@gmail.com",
+			"homepage": "http://blog.cakephp-brasil.org"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"composer/installers": "*"
+	}
+}
