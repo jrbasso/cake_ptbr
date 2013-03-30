@@ -45,6 +45,26 @@ class FormatacaoHelper extends AppHelper {
 	}
 
 /**
+ * Formata a hora
+ *
+ * @param integer $hora Hora em timestamp ou null para atual
+ * @param array $opcoes É possível definir o valor de 'invalid' e 'userOffset' que serão usados pelo helper Time
+ * @return string Hora no formato hh:mm:ss
+ * @access public
+ */
+	public function hora($hora = null, $segundos = true, $opcoes = array()) {
+		$padrao = array(
+			'invalid' => '31/12/1969',
+			'userOffset' => null
+		);
+		$config = array_merge($padrao, $opcoes);
+
+		$hora = $this->_ajustaDataHora($hora);
+		if ($segundos) return $this->Time->format('H:i:s', $hora, $config['invalid'], $config['userOffset']);
+		else return $this->Time->format('H:i', $hora, $config['invalid'], $config['userOffset']);
+	}
+
+/**
  * Formata a data e hora
  *
  * @param integer $dataHora Data e hora em timestamp ou null para atual
