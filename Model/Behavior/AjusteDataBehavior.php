@@ -18,7 +18,7 @@
 class AjusteDataBehavior extends ModelBehavior {
 
 /**
- * Configuração dos campos
+ * ConfiguraÃ§Ã£o dos campos
  *
  * @var array
  * @access public
@@ -35,7 +35,7 @@ class AjusteDataBehavior extends ModelBehavior {
  */
 	public function setup(Model $model, $config = array()) {
 		if (empty($config)) {
-			// Caso não seja informado os campos, ele irá buscar no schema
+			// Caso nï¿½o seja informado os campos, ele irï¿½ buscar no schema
 			$this->campos[$model->name] = $this->_buscaCamposDate($model);
 		} elseif (!is_array($config)) {
 			$this->campos[$model->name] = array($config);
@@ -76,16 +76,27 @@ class AjusteDataBehavior extends ModelBehavior {
 	public function ajustarDatas(Model $model) {
 		$data =& $model->data[$model->name];
 		foreach ($this->campos[$model->name] as $campo) {
-			if (isset($data[$campo]) && preg_match('/\d{1,2}\/\d{1,2}\/\d{2,4}/', $data[$campo])) {
-				list($dia, $mes, $ano) = explode('/', $data[$campo]);
-				if (strlen($ano) == 2) {
-					if ($ano > 50) {
-						$ano += 1900;
-					} else {
-						$ano += 2000;
+			if (isset($data[$campo])) {
+				// DATA E HORA
+				if(preg_match('/\d{1,2}\/\d{1,2}\/\d{2,4} \d{1,2}\:\d{1,2}/', $data[$campo])) {
+					$novaData = explode(' ', $data[$campo]);
+					list($dia, $mes, $ano) = explode('/', $novaData[0]);
+					list($hora, $minuto, $segundo) = explode(':', $novaData[1]);
+					if (strlen($ano) == 2) {
+						if ($ano > 50) $ano += 1900;
+						else $ano += 2000;
 					}
+					$data[$campo] = "$ano-$mes-$dia $hora:$minuto:$segundo";
 				}
-				$data[$campo] = "$ano-$mes-$dia";
+				// DATA
+				elseif(preg_match('/\d{1,2}\/\d{1,2}\/\d{2,4}/', $data[$campo])) {
+					list($dia, $mes, $ano) = explode('/', $data[$campo]);
+					if (strlen($ano) == 2) {
+						if ($ano > 50) $ano += 1900;
+						else $ano += 2000;
+					}
+					$data[$campo] = "$ano-$mes-$dia";
+				}
 			}
 		}
 		return true;
