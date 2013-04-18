@@ -120,4 +120,27 @@ class AjusteFloatBehavior extends ModelBehavior {
 		return true;
 	}
 
+
+/**
+ * After Find
+ * Transforma o valor de SQL para o formato BRL depois de executar uma query e antes de retornar o valor 
+ * para action.
+ * 
+ * @param object $model
+ * @return array
+ * @access public
+ */
+	public function afterFind(Model $model, $results) {
+		foreach($results as $key => $data) {
+			if(isset($data[$model->alias])) {
+				foreach($data[$model->alias] as $field => $value) {
+					if(!preg_match('/^\d+\.\d+$/', $value)) continue;
+					$value = number_format($value, 2, ',', '.');
+					$results[$key][$model->alias][$field] = $value;
+				}
+			}
+		}
+		return $results;
+	}
+
 }
