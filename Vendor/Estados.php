@@ -23,7 +23,7 @@ class Estados {
  * @access public
  */
 	public static function lista() {
-		return array(
+		$lista = array(
 			'AC' => 'Acre',
 			'AL' => 'Alagoas',
 			'AP' => 'Amapá',
@@ -52,6 +52,9 @@ class Estados {
 			'SE' => 'Sergipe',
 			'TO' => 'Tocantins'
 		);
+
+		sort($lista);
+		return $lista;
 	}
 
 }
