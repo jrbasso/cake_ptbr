@@ -1,4 +1,6 @@
 <?php
+use Cake\Core\Plugin;
+
 /**
  * Arquivo para adaptação da aplicação para Português-Brasil
  *
@@ -11,7 +13,7 @@
  */
 
 // Tradução das mensagens do core
-include Plugin::path('CakePtbr') . 'Config' . DS . 'traducao_core.php';
+//include Plugin::path('CakePtbr') . 'Config' . DS . 'traducao_core.php';
 
 // Alteração das regras de inflections
-include Plugin::path('CakePtbr') . 'Config' . DS . 'inflections.php';
+include Plugin::path('CakePtbr') . 'config' . DS . 'inflections.php';
