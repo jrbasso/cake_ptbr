@@ -13,7 +13,7 @@ arquivo ```config/bootstrap.php``` da seguinte maneira:
 
 ```php
 <?php
-    Plugin::load("CakePtbr");
+    Plugin::load('CakePtbr', ['bootstrap'=> true]);
 ```
 
 ou se o seu arquivo ```bootstrap.php``` possuir o ```Plugin::loadAll()``` pode ignorar este passo.
