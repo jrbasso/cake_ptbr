@@ -20,8 +20,7 @@
     "phpunit/phpunit": "4.5.*",
     "cakephp/cakephp-codesniffer": "2.*",
     "symfony/dom-crawler": "2.*",
-    "symfony/css-selector": "2.*",
-    "satooshi/php-coveralls": "dev-master"
+    "symfony/css-selector": "2.*"
   },
   "autoload": {
     "psr-4": {
