@@ -12,8 +12,5 @@ use Cake\Core\Plugin;
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-// Tradução das mensagens do core
-//include Plugin::path('CakePtbr') . 'Config' . DS . 'traducao_core.php';
-
 // Alteração das regras de inflections
 include Plugin::path('CakePtbr') . 'config' . DS . 'inflections.php';
