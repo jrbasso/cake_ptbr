@@ -1,4 +1,7 @@
 <?php
+
+use Cake\Core\Plugin;
+
 /**
  * Arquivo para adaptação da aplicação para Português-Brasil
  *
