@@ -60,10 +60,10 @@ class CorreiosTraitTest extends TestCase
 
         $correios = $this->Correios->valorFrete($dados);
         $this->assertEquals([
-            'valorMaoPropria' => '4,30',
+            'valorMaoPropria' => '5,50',
             'valorTarifaValorDeclarado' => '0,00',
-            'valorFrete' => 35,
-            'valorTotal' => '39,00',
+            'valorFrete' => 40,
+            'valorTotal' => '45,30',
             'entregaDomiciliar' => true,
             'entregaSabado' => true
         ], $correios);
