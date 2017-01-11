@@ -59,11 +59,12 @@ class CorreiosTraitTest extends TestCase
         $this->assertEquals(CorreiosTrait::$ERRO_CORREIOS_PARAMETROS_INVALIDOS, $this->Correios->valorFrete(array_merge($dados, $pesoNegativo)));
 
         $correios = $this->Correios->valorFrete($dados);
+
         $this->assertEquals([
-            'valorMaoPropria' => '5,50',
+            'valorMaoPropria' => '0,00',
             'valorTarifaValorDeclarado' => '0,00',
-            'valorFrete' => 40,
-            'valorTotal' => '45,30',
+            'valorFrete' => 39,
+            'valorTotal' => '39,80',
             'entregaDomiciliar' => true,
             'entregaSabado' => true
         ], $correios);
