@@ -37,24 +37,25 @@ class AjusteFloatBehavior extends ModelBehavior {
 	public function setup(Model $model, $config = array()) {
 		$this->floatFields[$model->alias] = array();
 		foreach ($model->schema() as $field => $spec) {
-			if ($spec['type'] == 'float') {
+			if (in_array($spec['type'], array('float', 'decimal'))) {
 				$this->floatFields[$model->alias][] = $field;
 			}
 		}
 	}
-	
+
 /**
  * Before Find
  * Transforma o valor de BRL para o formato SQL antes de executar uma query
  * com conditions.
- * 
- * @param object $model
+ *
+ * @param Model $model
+ * @param array $config
  * @return boolean
  * @access public
- */	
+ */
 	public function beforeValidate(Model $model, $config = array()) {
 		foreach($model->data[$model->alias] as $field => $value) {
-			if ($model->hasField($field) && $model->_schema[$field]['type'] == 'float') {
+			if ($model->hasField($field) && in_array($model->_schema[$field]['type'], array('float', 'decimal'))) {
 				if (!is_string($value) || preg_match('/^[0-9]+(\.[0-9]+)?$/', $value)) {
 					continue;
 				}
@@ -63,13 +64,14 @@ class AjusteFloatBehavior extends ModelBehavior {
 		}
 		return true;
 	}
-	
+
 /**
  * Before Find
  * Transforma o valor de BRL para o formato SQL antes de executar uma query
  * com conditions.
- * 
- * @param object $model
+ *
+ * @param Model $model
+ * @param array $query
  * @return array
  * @access public
  */
@@ -82,7 +84,7 @@ class AjusteFloatBehavior extends ModelBehavior {
 				list($modelName, $field) = explode('.', $field);
 				$modelName = str_replace('`', '', $modelName);
 				$useModel = ($modelName != $model->alias) ? $model->{$modelName} : $model;
-				if ($useModel->hasField($field) && $useModel->_schema[$field]['type'] == 'float') {
+				if ($useModel->hasField($field) && in_array($useModel->_schema[$field]['type'], array('float', 'decimal'))) {
 					if (!is_string($value) || preg_match('/^[0-9]+(\.[0-9]+)?$/', $value)) {
 						continue;
 					}
@@ -102,8 +104,9 @@ class AjusteFloatBehavior extends ModelBehavior {
 /**
  * Before Save
  *
- * @param object $model
- * @return void
+ * @param Model $model
+ * @param array $config
+ * @return mixed
  * @access public
  */
 	public function beforeSave(Model $model, $config = array()) {
