@@ -82,7 +82,7 @@ class AjusteFloatBehavior extends ModelBehavior {
 					$field = $model->alias . '.' . $field;
 				}
 				list($modelName, $field) = explode('.', $field);
-				$modelName = str_replace('`', '', $modelName);
+				$modelName = str_replace(array('`', '"'), '', $modelName);
 				$useModel = ($modelName != $model->alias) ? $model->{$modelName} : $model;
 				if ($useModel->hasField($field) && in_array($useModel->_schema[$field]['type'], array('float', 'decimal'))) {
 					if (!is_string($value) || preg_match('/^[0-9]+(\.[0-9]+)?$/', $value)) {
