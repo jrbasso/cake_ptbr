@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=5.5",
-    "cakephp/cakephp": "~3.0",
+    "cakephp/cakephp": "3.*",
     "composer/installers": "*"
   },
   "require-dev": {
