@@ -45,12 +45,13 @@ Inflector::rules('uninflected', [
 
 Inflector::rules('irregular', [
     'abdomen' => 'abdomens',
+    'alcool' => 'alcoois',
     'alemao' => 'alemaes',
     'artesa' => 'artesaos',
     'as' => 'ases',
     'bencao' => 'bencaos',
-    'cao' => 'caes',
     'campus' => 'campi',
+    'cao' => 'caes',
     'capelao' => 'capelaes',
     'capitao' => 'capitaes',
     'chao' => 'chaos',
@@ -62,24 +63,24 @@ Inflector::rules('irregular', [
     'email' => 'emails',
     'escrivao' => 'escrivaes',
     'fossel' => 'fosseis',
+    'gas' => 'gases',
     'germens' => 'germen',
     'grao' => 'graos',
     'hifens' => 'hifen',
     'irmao' => 'irmaos',
+    'lei' => 'leis',
     'liquens' => 'liquen',
     'mal' => 'males',
     'mao' => 'maos',
     'orfao' => 'orfaos',
-    'pais' => 'paises',
     'pai' => 'pais',
+    'pais' => 'paises',
     'pao' => 'paes',
     'projetil' => 'projeteis',
     'reptil' => 'repteis',
     'sacristao' => 'sacristaes',
     'sotao' => 'sotaos',
     'tabeliao' => 'tabeliaes',
-    'gas' => 'gases',
-    'alcool' => 'alcoois'
 ]);
 
 Inflector::rules('transliteration', [
